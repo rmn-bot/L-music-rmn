@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lirik Lagu dengan Tombol Mulai</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lyrics span {
+            display: none;
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .lyrics span.active {
+            display: block;
+        }
+
+        audio {
+            display: none; /* Audio disembunyikan */
+        }
+
+        #startButton {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        #startButton:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+   <img src="gife3.gif" alt="Contoh GIF" width="250">
+    <h1>Kutetap Menananti</h1>
+    <small>Lagu:Nikita Willy</small>
+    
+    <!-- Tombol untuk memulai lagu -->
+    <button id="startButton">Mulai</button>
+    
+    <!-- Lagu yang akan diputar -->
+    <audio id="song">
+        <source src="badai.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+
+    <div class="lyrics">
+        <span data-time="1">Meski dirimu bukan milikku🙆🏻</span>
+        <span data-time="5">Namun hatiku tetap untukmu🫵🏻🩷</span>
+        <span data-time="9">Berjuta pilihan disisiku</span>
+        <span data-time="13">Takkan bisa mengantikanmu🙅🏻</span>
+        <span data-time="18">Walau badai menerpa🌪️</span>
+        <span data-time="20">Cintaku takkan ku lepas💔</span>
+        <span data-time="25">Berikan kesempatan untuk membuktikan</span>
+        <span data-time="30">Ku mampu menjadi yang terbaik</span>
+        <span data-time="35">Dan masih menjadi yang terbaik</span>
+        <span data-time="38">Ku akan menanti</span>
+        <span data-time="40">Meski harus penantian panjang</span>
+        <span data-time="45">Ku akan tetap setia menunggumu🫵🏻</span>
+        <span data-time="50">Ku tahu kau hanya untukku🙆🏻</span>
+        <span data-time="56">Biarlah waktuku🕐</span>
+        <span data-time="58">Habis oleh penantian ini</span>
+        <span data-time="62">Hingga kau percaya betapa besar</span>
+        <span data-time="66">Cintaku padamu ku tetap menanti🫵🏻🩷</span>
+        <span data-time="68">cinta itu indah bagi mereka yanv saling mencintai</span>
+        <!-- Tambahkan lirik lainnya sesuai dengan lagu -->
+    </div>
+
+    <script>
+        const song = document.getElementById('song');
+        const lyrics = document.querySelectorAll('.lyrics span');
+        const startButton = document.getElementById('startButton');
+
+        // Fungsi untuk memulai lagu dan sinkronisasi lirik
+        startButton.addEventListener('click', () => {
+            song.play(); // Memulai pemutaran lagu
+            startButton.style.display = 'none'; // Menyembunyikan tombol mulai
+
+            song.addEventListener('timeupdate', () => {
+                let currentTime = song.currentTime;
+
+                lyrics.forEach((line) => {
+                    let lineTime = parseFloat(line.getAttribute('data-time'));
+                    if (currentTime >= lineTime && currentTime < lineTime + 5) {
+                        line.classList.add('active');
+                    } else {
+                        line.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
